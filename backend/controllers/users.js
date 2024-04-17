@@ -152,9 +152,9 @@ exports.update_profile = async (req, res) => {
             user.authorname = req.body.authorname || user.authorname;
             user.email = req.body.email || user.email;
             user.age = req.body.age || user.age;
-            // if (req.body.password) {
-            //     user.password = req.body.password || user.password;
-            // }
+            if (req.body.password) {
+                user.password = req.body.password || user.password;
+            }
             let filepath = path.join(__dirname, `../../frontend/src/uploads/profiles/${user?.avatar}`);
             let file = fs.existsSync(filepath)
             if (!file) return res.json({ msg: "File does not exist" })
@@ -164,7 +164,7 @@ exports.update_profile = async (req, res) => {
                 authorname: req.body.authorname,
                 email: req.body.email,
                 age: req.body.age,
-                // password: req.body.password,
+                password: req.body.password,
                 avatar: req.file.filename,
             });
             let userData = await User.findOne({ _id: user._id })
